@@ -1,0 +1,121 @@
+# source: http://localhost:8080/graphql
+# timestamp: Sat Mar 23 2024 01:48:16 GMT+0530 (India Standard Time)
+
+schema {
+  query: RootQuery
+  mutation: RootMutation
+}
+
+"""Exposes a URL that specifies the behavior of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behavior of this scalar."""
+  url: String!
+) on SCALAR
+
+input createImageInput {
+  url: String
+  title: String
+  clientMutationId: String
+}
+
+type createImagePayload {
+  success: Boolean
+  message: String
+  image: ImageEdge
+  clientMutationId: String
+}
+
+input deleteImageInput {
+  id: ID
+  clientMutationId: String
+}
+
+type deleteImagePayload {
+  success: Boolean
+  message: String
+  image: ImageEdge
+  clientMutationId: String
+}
+
+type Image {
+  id: ID
+  title: String
+  isFavourite: Boolean
+  url: String
+}
+
+"""A connection to a list of items."""
+type ImageConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ImageEdge]
+}
+
+"""An edge in a connection."""
+type ImageEdge {
+  """The item at the end of the edge"""
+  node: Image
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type RootMutation {
+  createImage(input: createImageInput!): createImagePayload
+  updateImage(input: updateImageInput!): updateImagePayload
+  deleteImage(input: deleteImageInput!): deleteImagePayload
+}
+
+type RootQuery {
+  viewer: Viewer
+}
+
+input updateImageInput {
+  id: String
+  title: String
+  isFavourite: Boolean
+  clientMutationId: String
+}
+
+type updateImagePayload {
+  success: Boolean
+  message: String
+  image: ImageEdge
+  clientMutationId: String
+}
+
+type Viewer {
+  id: ID
+  name: String
+  images(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+    isFavourite: Boolean
+  ): ImageConnection
+}
