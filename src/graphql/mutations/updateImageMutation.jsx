@@ -48,7 +48,7 @@ const commit = ({
     mutation,
     variables: { input: { id: imageNodeId, isFavourite, title } },
     optimisticUpdater: (store) => {
-      sharedUpdater({ store, imageNodeId });
+      sharedUpdater({ store, imageNodeId, isFavourite, title });
     },
     updater: (store) => {
       sharedUpdater({ store, imageNodeId, isFavourite, title });
