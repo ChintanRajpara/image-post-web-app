@@ -16,4 +16,4 @@ step 2: start web app
 
 ---
 
-GraphQL NodeJS nackend => https://github.com/ChintanRajpara/image-post-server
+GraphQL NodeJS backend => https://github.com/ChintanRajpara/image-post-server
