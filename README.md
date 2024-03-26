@@ -13,3 +13,7 @@ step 1: install dependencies
 step 2: start web app
 
 > yarn start
+
+---
+
+GraphQL NodeJS nackend => https://github.com/ChintanRajpara/image-post-server
